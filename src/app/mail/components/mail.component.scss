@@ -1,0 +1,248 @@
+.loading-indicator {
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   background: rgba(255, 255, 255, 0.5);
+   z-index:10;
+   opacity: .5;
+}   
+
+
+.loading-indicator > div {
+ position: absolute;
+ -webkit-transform: translate(-50%,-50%);
+ transform: translate(-50%,-50%);
+ top: 50%;
+ left: 50%;
+}
+
+.mail {
+    // min-height: 100vh;
+    .mail-header {
+        height: 70px;
+        padding: 0 15px;
+        background-color: #e7e7e7; 
+    }
+    .mail-action-line {
+        font-family: 'Source Sans Pro';
+        padding: 15px;
+        .greeting {
+            font-size: 14px;
+            .name { 
+                margin-right: 45px;
+            }
+            .info {
+                color: #6ed03C;
+            }
+            a {
+                color: #6ed03C;
+                font-size: 16px;
+                text-decoration: underline;
+            }
+        }
+        .logo {
+            span {
+                font-family: "Source Sans Pro Light";
+                font-size: 12px;
+                color: #000;
+            }
+        }
+    }
+    .mail-about-block {
+        font-family: 'Source Sans Pro';
+        .title {
+            font-weight: bold;
+            font-size: 28px;
+            color: #33a7d8;
+        }
+        .subtitle {
+            font-weight: 300;
+            font-size: 25px;
+            color: #33a7d8;
+        }
+    }
+    .send-content {
+        &.dropdown {
+            .vendors-list-content {
+                display: none !important;
+            }
+            &.open {
+                .vendors-list-content {
+                    display: flex !important;
+                }
+            }
+        }
+        .send-block {
+            height: 60px;
+            .edit-vendor-list {
+                font-family: 'Source Sans Pro';
+                color: #999999;
+                font-size: 16px;
+            }
+        }
+        .vendors-list-content {
+            .action-label {
+                margin-right: 25px;
+            }
+            .category-list {
+                padding-right: 30px;
+                height: 357px;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                border-top: 1pt dotted #33a5d6;
+                &::-webkit-scrollbar {
+                    width:12px;
+                    background-color: #EDEDED;
+                }
+                &::-webkit-scrollbar-thumb:vertical {
+                    background-color: #747474;
+                    // height: 40px;
+                }
+                .category-items {
+                    border-bottom: 1pt solid #dee0e3 !important;
+                    &:last-child {
+                        border-bottom: none !important;
+                    }
+                    .category {
+                        height: 40px;
+                        font-family: "Source Sans Pro";
+                        font-size: 16px;
+                        text-transform: uppercase;
+                        color: #000;
+                        opacity: 0.87;
+                        .dropdown-toggle {
+                            margin-right: 15px;
+                        }
+                    }
+                    &.dropdown.open {
+                        .category {
+                            background-color: #f4f4f4;
+                        }
+                    }
+                    .vendor-list {
+                        display: none !important;
+                        background-color: #f4f4f4;
+                        .vendor-list-title {
+                            height: 35px;
+                            border-bottom: 1px solid #959595;
+                            p {
+                                font-family: "Source Sans Pro Light";
+                                font-weight: bold;
+                                font-size: 13px;
+                                color: #000;
+                                opacity: 0.54;
+                            }
+                        }
+                        .vendor {
+                            height: 35px;
+                            font-family: "Source Sans Pro";
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            color: #000;
+                            opacity: 0.87;
+                                .rating > span {
+                                    content: "\2605";
+                                    color: #d0d0d0;
+                                }
+                                .rating > span.active {
+                                    content: "\2605";
+                                    color: #989992;
+                                }
+                            }
+                        }
+                    &.dropdown.open {
+                        .vendor-list {
+                            display: flex !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .subject-content {
+        height: 60px;
+    }
+    .text-content {
+        .text {
+            padding-right: 30px;
+            height: 410px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            &::-webkit-scrollbar {
+                width:12px;
+                background-color: #EDEDED;
+            }
+            &::-webkit-scrollbar-thumb:vertical {
+                background-color: #747474;
+            }
+            p {
+                font-family: "Source Sans Pro";
+                font-size: 16px;
+                line-height: 20px;
+                opacity: .87;
+            }
+        }
+    }
+    
+    .cc-content {
+        height: 60px;
+        border-bottom: 1pt dotted rgba(0, 0, 0, .54)
+    }
+
+    .from-content {
+        height: 60px;
+    }
+
+    .row {
+        border-top: 1pt dotted rgba(0, 0, 0, .54);
+        .action-label {
+            font-family: 'Source Sans Pro Regular';
+            text-align: right;
+            margin-right: 25px;
+            font-size: 16px;
+        }
+        .action-title, input {
+            font-family: 'Source Sans Pro Regular';
+            font-size: 24px;
+            color: #33a7d8;
+        }
+        .mat-icon {
+            cursor: pointer;
+        }
+        &.edit-mode {
+            background-color: rgb(234, 245, 249); 
+        }
+    }
+    .dropdown-toggle {
+        font-family: "Source Sans Pro Light";
+        color: #747474;
+        cursor: pointer;
+        float: right;
+        position: relative;
+        height: 36px;
+        width: 36px;
+        &:before {
+            position: absolute;
+            top: 0px;
+            left: 20px;
+            background-repeat: no-repeat;
+            display: inline-block;
+            font-size: 30px;
+            text-align: center;
+            content: "\2039";
+        }
+        &.icon-arrow-up {
+            &:before {
+                -webkit-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+            }
+        }
+        &.icon-arrow-down {
+            &:before {
+                left: 26px;
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+        }
+    }
+}

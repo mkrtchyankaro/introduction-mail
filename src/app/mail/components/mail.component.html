@@ -1,0 +1,165 @@
+<div fxFlex fxLayout="row" fxLayoutWrap class="mail" *ngIf="(mailData | async);else noData">
+
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="left center" class="mail-header">
+    <img [src]="account.logo" height="40">
+  </div>
+
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between stretch" class="mail-action-line">
+    <div class="greeting">
+      <span class="name">Hello <span>{{ account.name }}</span>,</span>
+      <span class="info"><span>&#9679;</span>You have <span>{{ account.numOfNewVendors }}</span>disfunctioning vendors. </span>
+      <a href="#">Encourage them by mail</a>
+    </div>
+    <div class="logo"><span>Powered by</span><img src="/img/vb-logo.png" height="18"></div>
+  </div>
+
+  <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" class="mail-about-block">
+    <div fxFlex="0 0 85px"></div>
+    <div fxFlex="none" class="title">INTRODUCTION MAIL</div>
+    <div fxFlex="none" class="subtitle">VAT RECOVERY PROGRAM</div>
+    <div fxFlex="0 0 22px"></div>
+  </div>
+
+  <div fxFlex="100" fxLayout="row" fxLayoutWrap class="dropdown send-content">
+
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="send-block row">
+      <div fxFlex class="action-label">TO</div>
+      <div fxFlex="0 0 930px" fxLayout="row" fxLayoutAlign="left center">
+        <span fxFlex="0 0 200px" class="action-title">{{ account.numOfNewVendors }} Vendors</span>
+        <div fxFlex="none" class="edit-vendor-list">Edit Vendors List</div>
+        <div fxFlex="none">
+          <div class="dropdown-toggle"></div>
+        </div>
+      </div>
+      <div fxFlex></div>
+    </div>
+
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="vendors-list-content">
+      <div fxFlex class="action-label"></div>
+      <div fxFlex="0 0 930px" fxLayoutWrap class="category-list">
+        <div fxFlex="100" fxLayoutWrap class="category-items dropdown" *ngFor="let category of vendorList; let categoryIndex=index">
+          <div fxFlex="100" fxLayout="row" fxLayoutAlign="left center" class="category">
+            <div fxFlex="0 0 10px"></div>
+            <md-checkbox fxFlex="0 0 35px" [checked]="isVendorListChecked(categoryIndex)" (change)="selectVendorList($event, categoryIndex)"></md-checkbox>
+            <span fxFlex *ngIf="config">{{ config.categoryById(category.typeCode).name }} ({{ getCheckedVendorsListCount(category.typeCode) }} / {{category.vendors.length}})</span>
+            <div fxFlex>
+              <div class="dropdown-toggle"></div>
+            </div>
+          </div>
+          <div fxFlex="100" fxLayoutWrap class="vendor-list" fxShow="false">
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="left end" class="vendor-list-title">
+              <div fxFlex="0 0 100px"></div>
+              <p fxFlex="0 0 445px">Vendor Name</p>
+              <p fxFlex="0 0 215px">Vendor Vat Ressiue Rate</p>
+              <p fxFlex>Country</p>
+            </div>
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="left center" class="vendor" *ngFor="let vendor of category.vendors; let vendorIndex=index">
+              <div fxFlex="0 0 10px"></div>
+              <md-checkbox fxFlex="0 0 35px" [checked]="isVendorChecked(vendor)" (change)="selectVendor($event, vendor, categoryIndex)"></md-checkbox>
+              <span fxFlex="0 0 500px">{{vendor.name}}</span>
+              <div fxFlex="0 0 215px" class="rating">
+                <span *ngFor="let star of stars; let index = index" [class.active]="index < vendor.rate">☆</span>
+              </div>
+              <span fxFlex *ngIf="config">{{ config.countryByCode(vendor.countryCode).name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex></div>
+    </div>
+  </div>
+
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="subject-content row" [ngClass]="{'edit-mode': !isSubjectDisabled }">
+    <div fxFlex class="action-label">SUBJECT</div>
+    <div fxFlex="0 0 930px" fxLayout="row" fxLayoutAlign="left center">
+      <md-input-container fxFlex="0 0 876px">
+      <input mdInput placeholder="" [disabled] = "isSubjectDisabled" value="Amazon Introduce Recovery VAT Program">
+      </md-input-container>
+      <div fxFlex *ngIf="isSubjectDisabled"><md-icon color="primary" (click)="toogleDisable('subject',isSubjectDisabled)">create</md-icon></div>
+      <div fxFlex *ngIf="!isSubjectDisabled"><md-icon color="primary" (click)="toogleDisable('subject',isSubjectDisabled)">save</md-icon></div>
+    </div>
+    <div fxFlex></div>
+  </div>
+
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="text-content row">
+    <div fxFlex class="action-label"></div>
+    <div fxFlex="0 0 930px" class="text">
+      <br>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+        text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+        book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+        unchanged.
+      </p>
+      <br>
+      <p>
+        <strong> is a long established fact that a reader</strong> will be distracted by the readable content of a page when
+        looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+        as opposed to using 'Content here, content here', making it look like readable English.
+      </p>
+      <br>
+      <p>
+        <strong>Lorem Ipsum is simply dummy text of the printing</strong> and typesetting industry. Lorem Ipsum has been
+        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+        it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+        Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem
+        Ipsum.
+      </p>
+      <br>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+        text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+        book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+        unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+        more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </p>
+      <br>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+        text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+        book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+        unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+        more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </p>
+    </div>
+    <div fxFlex></div>
+  </div>
+
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="from-content row" [ngClass]="{'edit-mode': !isFromtDisabled }">
+    <div fxFlex class="action-label">FROM</div>
+    <div fxFlex="0 0 930px" fxLayout="row" fxLayoutAlign="left center">
+      <md-input-container fxFlex="0 0 876px">
+      <input mdInput placeholder="" [disabled] = "isFromtDisabled" [value]="account.fromEmail">
+      </md-input-container>
+      <div fxFlex *ngIf="isFromtDisabled"><md-icon color="primary" (click)="toogleDisable('from',isFromtDisabled)">create</md-icon></div>
+      <div fxFlex *ngIf="!isFromtDisabled"><md-icon color="primary" (click)="toogleDisable('from',isFromtDisabled)">save</md-icon></div>
+    </div>
+    <div fxFlex></div>
+  </div>
+  
+
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="cc-content row">
+    <div fxFlex class="action-label">CC</div>
+    <div fxFlex="0 0 930px" fxLayout="row" fxLayoutAlign="left center">
+      <md-input-container fxFlex="0 0 876px">
+      <input mdInput placeholder="" disabled  [value]="account.ccEmail">
+      </md-input-container>
+    </div>
+    <div fxFlex></div>
+  </div>
+
+  <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" class="mail-about-block">
+    <div fxFlex="0 0 22px"></div>
+    <div fxFlex="none" class="send-button"><button [disabled]="!(checkedVendorList.length > 0)" (click)="sendEmail()" md-raised-button color="primary">Send Email</button></div>
+    <div fxFlex="0 0 85px"></div>
+  </div>
+
+</div>
+<ng-template #noData>
+  <div class="loading-indicator">
+    <div>
+      <md-spinner></md-spinner>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,33 @@
+@import '~@angular/material/core/theming/_all-theme';
+
+@include mat-core();
+
+.cyan-amber-red {
+    $light-primary:  mat-palette($mat-cyan);
+    $light-accent:   mat-palette($mat-grey, A200, A100, A400);
+    $light-warn:     mat-palette($mat-red);
+
+    $light-theme:    mat-light-theme($light-primary, $light-accent, $light-warn);
+    @include angular-material-theme($light-theme);
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  text-decoration: none; 
+  outline: none;
+}
+
+.vendor {
+   .mat-checkbox-inner-container {
+      width: 17px !important;
+      height: 17px !important;
+  }
+}
+.row {
+  .mat-input-underline.mat-disabled {
+    display: none !important;
+  }
+}
+
