@@ -1,5 +1,5 @@
 Introduction Mail app - 
-You can choose the vendors from category list and send them mail 
+* You can choose the vendors from category list and send them mail 
 
 Backend
 * created Backend api for getting account info
