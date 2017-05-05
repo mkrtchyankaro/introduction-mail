@@ -1,4 +1,4 @@
-Introduction Mail app
+Introduction Mail app - 
 You can choose the vendors from category list and send them mail 
 
 Backend
