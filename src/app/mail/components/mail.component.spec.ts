@@ -5,6 +5,7 @@ import { MailApiService } from "../api/mail-api.service";
 import { MaterialModule } from '@angular/material';
 import { SecurityService, CookiesService, LoggerService } from 'client-toolbox';
 import { ConfigurationAPIService } from 'client-toolbox';
+import { TextEditorComponent } from '../../shared/ui/texteditor/texteditor.component';
 
 describe('MailComponent', () => {
   let component: MailComponent;
@@ -13,7 +14,7 @@ describe('MailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MailComponent ],
+      declarations: [ MailComponent, TextEditorComponent ],
       imports: [ MaterialModule ],
         providers: [
           MailApiService,

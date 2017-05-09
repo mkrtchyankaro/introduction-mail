@@ -85,6 +85,26 @@ module.exports = function makeWebpackConfig() {
    * This handles most of the magic responsible for converting modules
    */
   config.module = {
+    // for importing and exporting 
+    loaders: [
+      {
+        test: [
+          require.resolve('tinymce/tinymce'),
+        ],
+        loaders: [
+          'imports?this=>window',
+          'exports?window.tinymce'
+        ]
+      },
+      {
+        test: [
+          /tinymce\/(themes|plugins)\//,
+        ],
+        loaders: [
+          'imports?this=>window'
+        ]
+      }
+    ],
     rules: [
       // Support for .ts files.
       {
@@ -100,7 +120,7 @@ module.exports = function makeWebpackConfig() {
       },
 
       // Support for *.json files.
-      {test: /\.json$/, loader: 'json-loader'},
+      { test: /\.json$/, loader: 'json-loader' },
 
       // Support for CSS as raw text
       // use 'null' loader in test mode (https://github.com/webpack/null-loader)
@@ -108,10 +128,10 @@ module.exports = function makeWebpackConfig() {
       {
         test: /\.css$/,
         exclude: root('src', 'app'),
-        loader: isTest ? 'null-loader' : ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader']})
+        loader: isTest ? 'null-loader' : ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader'] })
       },
       // all css required in src/app files will be merged in js files
-      {test: /\.css$/, include: root('src', 'app'), loader: 'raw-loader!postcss-loader'},
+      { test: /\.css$/, include: root('src', 'app'), loader: 'raw-loader!postcss-loader' },
 
       // support for .scss files
       // use 'null' loader in test mode (https://github.com/webpack/null-loader)
@@ -119,14 +139,14 @@ module.exports = function makeWebpackConfig() {
       {
         test: /\.(scss|sass)$/,
         exclude: root('src', 'app'),
-        loader: isTest ? 'null-loader' : ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader']})
+        loader: isTest ? 'null-loader' : ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader'] })
       },
       // all css required in src/app files will be merged in js files
-      {test: /\.(scss|sass)$/, exclude: root('src', 'style'), loader: 'raw-loader!postcss-loader!sass-loader'},
+      { test: /\.(scss|sass)$/, exclude: root('src', 'style'), loader: 'raw-loader!postcss-loader!sass-loader' },
 
       // support for .html as raw text
       // todo: change the loader to something that adds a hash to images
-      {test: /\.html$/, loader: 'raw-loader',  exclude: root('src', 'public')}
+      { test: /\.html$/, loader: 'raw-loader', exclude: root('src', 'public') }
     ]
   };
 
@@ -224,7 +244,7 @@ module.exports = function makeWebpackConfig() {
       // Extract css files
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
       // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin({filename: 'css/[name].[hash].css', disable: !isProd})
+      new ExtractTextPlugin({ filename: 'css/[name].[hash].css', disable: !isProd })
     );
   }
 
@@ -241,7 +261,7 @@ module.exports = function makeWebpackConfig() {
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }}),
+      new webpack.optimize.UglifyJsPlugin({ sourceMap: true, mangle: { keep_fnames: true } }),
 
       // Copy assets from the public folder
       // Reference: https://github.com/kevlened/copy-webpack-plugin

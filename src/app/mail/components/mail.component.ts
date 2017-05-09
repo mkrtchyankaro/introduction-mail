@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Account } from "../account.model";
 import { VendorList } from "../vendor-list.model";
 import { Vendor } from "../vendor.model";
@@ -6,6 +6,7 @@ import { MailManagerService } from "../managers/mail-manager.service";
 import { Configuration } from 'client-toolbox';
 import { Observable } from "rxjs";
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { TextEditorComponent } from '../../shared/ui/texteditor/texteditor.component';
 
 @Component({
   selector: 'app-mail',
@@ -14,6 +15,7 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 })
 export class MailComponent implements OnInit {
 
+  @ViewChild(TextEditorComponent) textEditor: TextEditorComponent;
   public mailData: Observable<[Configuration, Account, VendorList[]]>;
   public vendorList: VendorList[];
   public checkedVendorList: Vendor[] = [];
@@ -23,10 +25,13 @@ export class MailComponent implements OnInit {
   public stars: Array<number>;
   public isSubjectDisabled: boolean = true;
   public isFromtDisabled: boolean = true;
+  public isContentDisabled: boolean = true;
+  public mailText = `<p><strong>It is a long established fact that</strong> a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p> <p>&nbsp;</p> <p><strong>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</strong> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> <p>&nbsp;</p> <p><em>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</em></p> <p>&nbsp;</p> <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&nbsp;</p> <p>&nbsp;</p>`;
 
   constructor(private _manager: MailManagerService, public dialog: MdDialog) {
     this.stars = new Array(5);
   }
+
 
   selectVendorList(event, categoryIndex) {
     let vendorsList = this.vendorList[categoryIndex].vendors;
@@ -89,7 +94,26 @@ export class MailComponent implements OnInit {
       this.isSubjectDisabled = !isDisabled;
     } else if (element === 'from') {
       this.isFromtDisabled = !isDisabled;
+    } else if (element === 'content') {
+      if (isDisabled) {
+        // this.textEditor.editor.getBody().setAttribute('contenteditable', false);
+      }
+      this.isContentDisabled = !isDisabled;
     }
+  }
+
+  setTextFormat(event) {
+    this.textEditor.editor.formatter.toggle(event.value);
+    this.textEditor.editor.focus();
+  }
+
+  closeTextEditor() {
+    this.isContentDisabled = true;
+  }
+
+  saveTextEditor() {
+    this.mailText = this.textEditor.editor.getContent();
+    this.isContentDisabled = true;
   }
 
   sendEmail(): void {
@@ -124,5 +148,5 @@ export class MailComponent implements OnInit {
 })
 export class ConfirmationComponent {
   count: number;
-  constructor(public dialogRef: MdDialogRef<ConfirmationComponent>) {}
+  constructor(public dialogRef: MdDialogRef<ConfirmationComponent>) { }
 }

@@ -31,3 +31,24 @@
   }
 }
 
+.edit-actions {
+  .mat-button-toggle {
+    .mat-button-toggle-label-content {
+      margin: 0;
+      padding: 0;
+      .mat-icon {
+        opacity: .54;
+      }
+    }
+    &.mat-button-toggle-checked {
+      background: transparent;
+      .mat-icon {
+        opacity: 1;
+      }
+    }
+  }
+  
+}
+
+
+

@@ -9,6 +9,8 @@ import { ConfigurationAPIService } from 'client-toolbox';
 // directives
 import { DROPDOWN_DIRECTIVES } from '../shared/ui/dropdown/dropdown.directive';
 
+import { TextEditorComponent } from '../shared/ui/texteditor/texteditor.component';
+
 @NgModule({
   imports: [
     SharedModule,
@@ -20,7 +22,7 @@ import { DROPDOWN_DIRECTIVES } from '../shared/ui/dropdown/dropdown.directive';
     ConfigurationAPIService
   ],
   entryComponents: [ConfirmationComponent],
-  declarations: [MailComponent, DROPDOWN_DIRECTIVES, ConfirmationComponent]
+  declarations: [MailComponent, DROPDOWN_DIRECTIVES, ConfirmationComponent, TextEditorComponent]
 })
 export class MailModule { }
 

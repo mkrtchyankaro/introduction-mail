@@ -20,3 +20,19 @@ Unit Test
 * created functions for checking functionality frontend and backend
 
 
+HTML Editor 
+* investigated the text editors modules
+* installed and configured some modules and functionality
+* found the good text editor for Angular 2 (TInyMce)
+* investigated how to install that module in webpack 
+* intalled webpack modules (imports-loader and exports-loader)
+* installed the TinyMce editor in our project
+* created custom skin for this module 
+* created component (text editor component)
+* created custom css for this component 
+* configured the module and component
+* created init editor functionality for setting the data
+* created functions (set text format) for binding the bold and italic functionality 
+* created functionality for show and hide editor 
+
+

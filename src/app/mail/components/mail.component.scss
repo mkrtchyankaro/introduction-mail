@@ -16,6 +16,7 @@
  left: 50%;
 }
 
+
 .mail {
     // min-height: 100vh;
     .mail-header {
@@ -163,6 +164,9 @@
         height: 60px;
     }
     .text-content {
+        .toolbar_editor {
+            padding: 15px;
+        }
         .text {
             padding-right: 30px;
             height: 410px;
@@ -210,7 +214,7 @@
             cursor: pointer;
         }
         &.edit-mode {
-            background-color: rgb(234, 245, 249); 
+            background-color: #daeff8; 
         }
     }
     .dropdown-toggle {
